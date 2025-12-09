@@ -1,0 +1,102 @@
+/*******************************************************************************************
+  LG TV Volume Controller SIMPL+ Wrapper
+*******************************************************************************************/
+#SYMBOL_NAME "LG TV Volume Controller"
+#CATEGORY "10"
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+#USER_SIMPLSHARP_LIBRARY "LgTvController"
+
+/*******************************************************************************************
+  PARAMETERS
+*******************************************************************************************/
+STRING_PARAMETER Tv_Ip_Address[64];
+STRING_PARAMETER Tv_Mac_Address[64];
+STRING_PARAMETER Tv_Key_Code[16];
+
+/*******************************************************************************************
+  IO
+*******************************************************************************************/
+DIGITAL_INPUT _SKIP_,_SKIP_,_SKIP_, Volume_Up;
+DIGITAL_INPUT Volume_Down;
+DIGITAL_INPUT Volume_Mute;
+DIGITAL_INPUT Online_Fb;
+DIGITAL_INPUT Power_On;
+DIGITAL_INPUT Power_Off;
+
+STRING_INPUT TCP_Rx$[1024];
+
+DIGITAL_OUTPUT _SKIP_, _SKIP_, _SKIP_, ConnectOutput;
+DIGITAL_OUTPUT TvIsOnOutput;
+
+STRING_OUTPUT _SKIP_,_SKIP_,_SKIP_, TCP_Tx$;
+STRING_OUTPUT Log$;
+
+/*******************************************************************************************
+  GLOBALS
+*******************************************************************************************/
+LgTvVolumeController tv;
+
+/*******************************************************************************************
+  CALLBACKS FROM SIMPL#
+*******************************************************************************************/
+CALLBACK FUNCTION TxCallback(STRING data)
+{
+    TCP_Tx$ = data;
+}
+
+CALLBACK FUNCTION LogCallback(STRING data)
+{
+    Log$ = data;
+}
+
+// --- Added Digital Callbacks ---
+CALLBACK FUNCTION ConnectOutputCallback(INTEGER val)
+{
+    ConnectOutput = val;
+}
+
+CALLBACK FUNCTION TvIsOnOutputCallback(INTEGER val)
+{
+    TvIsOnOutput = val;
+}
+
+/*******************************************************************************************
+  EVENT HANDLERS
+*******************************************************************************************/
+CHANGE Online_Fb
+{
+    tv.SetOnlineStatus(Online_Fb);
+}
+
+CHANGE TCP_Rx$
+{
+    IF (LEN(TCP_Rx$) > 0)
+        tv.ProcessRx(TCP_Rx$);
+}
+
+PUSH Volume_Up    { tv.VolumeUp(); }
+PUSH Volume_Down  { tv.VolumeDown(); }
+PUSH Volume_Mute  { tv.VolumeMute(); }
+PUSH Power_On     { tv.PowerOn(); }
+PUSH Power_Off    { tv.PowerOff(); }
+
+/*******************************************************************************************
+  MAIN
+*******************************************************************************************/
+Function Main()
+{
+    WaitForInitializationComplete();
+
+    tv.Host       = Tv_Ip_Address;
+    tv.MacAddress = Tv_Mac_Address;
+    tv.KeyCode    = Tv_Key_Code;
+
+    RegisterDelegate(tv, TxOutput,       TxCallback);
+    RegisterDelegate(tv, LogOutput,      LogCallback);
+    RegisterDelegate(tv, ConnectOutput,  ConnectOutputCallback);
+    RegisterDelegate(tv, TvIsOnOutput,   TvIsOnOutputCallback);
+
+    tv.Initialize();
+}

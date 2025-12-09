@@ -1,0 +1,9 @@
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\LGTvController.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\LGTvController.pdb
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\SimplSharpCryptographyInterface.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\SimplSharpHelperInterface.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\obj\Debug\ResolveAssemblyReference.cache
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\obj\Debug\LGTvController.dll
+C:\Mac\Home\Documents\Visual Studio 2008\Projects\LGTvController\LGTvController\obj\Debug\LGTvController.pdb
