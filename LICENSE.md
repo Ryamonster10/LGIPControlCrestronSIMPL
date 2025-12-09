@@ -27,7 +27,7 @@ This license does not allow the User to deploy the Software for third-party clie
 
 For any commercial AV dealer, systems integrator, consultant, or organization deploying the Software for clients, the following license is required:
 
-### Commercial License Fee: $1000 (one-time)
+### Commercial License Fee: $500 (one-time)
 
 Upon payment, the Company grants the purchaser:
 
